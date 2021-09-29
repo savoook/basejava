@@ -7,8 +7,10 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    private Resume[] storage = new Resume[10_000];
+public class ArrayStorage implements Storage {
+
+    private static final int STORAGE_LIMIT = 10_000;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
 
     public void clear() {
@@ -18,12 +20,14 @@ public class ArrayStorage {
 
     public void save(Resume resume) {
         int idx = findIdx(resume.getUuid());
-        if (idx == -1) {
+        if (idx != -1) {
+            System.out.println("Резюме " + resume + " уже есть");
+        } else if (size == STORAGE_LIMIT) {
+            System.out.println("Массив переполнен");
+        } else {
             System.out.println("Резюме " + resume + " новое, осуществляю вставку");
             storage[size] = resume;
             size++;
-        } else {
-            System.out.println("Резюме " + resume + " уже есть");
         }
     }
 
