@@ -7,11 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage implements Storage {
-
-    private static final int STORAGE_LIMIT = 10_000;
-    private Resume[] storage = new Resume[STORAGE_LIMIT];
-    private int size = 0;
+public class ArrayStorage extends AbstractArrayStorage {
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -19,7 +15,7 @@ public class ArrayStorage implements Storage {
     }
 
     public void save(Resume resume) {
-        int idx = findIdx(resume.getUuid());
+        int idx = getIdx(resume.getUuid());
         if (idx != -1) {
             System.out.println("Резюме " + resume + " уже есть");
         } else if (size == STORAGE_LIMIT) {
@@ -32,7 +28,7 @@ public class ArrayStorage implements Storage {
     }
 
     public void update(Resume resume) {
-        int idx = findIdx(resume.getUuid());
+        int idx = getIdx(resume.getUuid());
         if (idx != -1) {
             System.out.println("Резюме " + resume + " найдено, осуществляю update");
             storage[idx] = resume;
@@ -42,7 +38,7 @@ public class ArrayStorage implements Storage {
     }
 
     public Resume get(String uuid) {
-        int idx = findIdx(uuid);
+        int idx = getIdx(uuid);
         if (idx != -1) {
             System.out.println("Резюме " + uuid + " найдено");
         } else {
@@ -53,7 +49,7 @@ public class ArrayStorage implements Storage {
     }
 
     public void delete(String uuid) {
-        int idx = findIdx(uuid);
+        int idx = getIdx(uuid);
         if (idx != -1) {
             System.out.println("Резюме " + uuid + " найдено, удаляю");
             storage[idx] = null;
@@ -77,7 +73,7 @@ public class ArrayStorage implements Storage {
         return size;
     }
 
-    private int findIdx(String uuid) {
+    protected int getIdx(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
