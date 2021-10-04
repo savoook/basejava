@@ -23,7 +23,21 @@ public abstract class AbstractArrayStorage implements Storage {
         return storage[idx];
     }
 
-    public abstract void save(Resume resume);
+
+    public void save(Resume resume) {
+        int idx = getIdx(resume.getUuid());
+        if (idx >= 0) {
+            System.out.println("Резюме " + resume + " уже есть");
+        } else if (size == STORAGE_LIMIT) {
+            System.out.println("Массив переполнен");
+        } else {
+            System.out.println("Резюме " + resume + " новое, осуществляю вставку");
+            inject(resume, idx);
+            size++;
+        }
+    }
+
+    protected abstract void inject(Resume resume, int positin);
 
     public void update(Resume resume) {
         int idx = getIdx(resume.getUuid());
