@@ -15,8 +15,8 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public Resume get(String uuid) {
-        int idx = getIdx(uuid);
-        if (idx == -1) {
+        int idx = findIndex(uuid);
+        if (idx < 0) {
             System.out.println("Резюме " + uuid + " не найдено");
             return null;
         }
@@ -25,23 +25,23 @@ public abstract class AbstractArrayStorage implements Storage {
 
 
     public void save(Resume resume) {
-        int idx = getIdx(resume.getUuid());
+        int idx = findIndex(resume.getUuid());
         if (idx >= 0) {
             System.out.println("Резюме " + resume + " уже есть");
         } else if (size == STORAGE_LIMIT) {
             System.out.println("Массив переполнен");
         } else {
             System.out.println("Резюме " + resume + " новое, осуществляю вставку");
-            inject(resume, idx);
+            saveToArray(resume, idx);
             size++;
         }
     }
 
-    protected abstract void inject(Resume resume, int positin);
+    protected abstract void saveToArray(Resume resume, int positin);
 
     public void update(Resume resume) {
-        int idx = getIdx(resume.getUuid());
-        if (idx != -1) {
+        int idx = findIndex(resume.getUuid());
+        if (idx >= 0) {
             System.out.println("Резюме " + resume + " найдено, осуществляю update");
             storage[idx] = resume;
         } else {
@@ -50,8 +50,8 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void delete(String uuid) {
-        int idx = getIdx(uuid);
-        if (idx != -1) {
+        int idx = findIndex(uuid);
+        if (idx >= 0) {
             System.out.println("Резюме " + uuid + " найдено, удаляю");
             storage[idx] = null;
             if (size - idx + 1 >= 0)
@@ -74,5 +74,5 @@ public abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
-    protected abstract int getIdx(String uuid);
+    protected abstract int findIndex(String uuid);
 }
