@@ -1,5 +1,8 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.exception.ExistStorageException;
+import com.basejava.webapp.exception.NotExistStorageException;
+import com.basejava.webapp.exception.StorageException;
 import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -9,70 +12,66 @@ public abstract class AbstractArrayStorage implements Storage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
+    public int size() {
+        return size;
+    }
+
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
+    /**
+     * @return array, contains only Resumes in storage (without null)
+     */
+
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
+
     public Resume get(String uuid) {
         int idx = findIndex(uuid);
         if (idx < 0) {
-            System.out.println("Резюме " + uuid + " не найдено");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[idx];
     }
 
+    public void update(Resume resume) {
+        int idx = findIndex(resume.getUuid());
+        if (idx < 0) {
+            throw new NotExistStorageException(resume.getUuid());
+        } else {
+            storage[idx] = resume;
+        }
+    }
 
     public void save(Resume resume) {
         int idx = findIndex(resume.getUuid());
         if (idx >= 0) {
-            System.out.println("Резюме " + resume + " уже есть");
+            throw new ExistStorageException(resume.getUuid());
         } else if (size == STORAGE_LIMIT) {
-            System.out.println("Массив переполнен");
+            throw new StorageException("Storage overflow", resume.getUuid());
         } else {
-            System.out.println("Резюме " + resume + " новое, осуществляю вставку");
             saveToArray(resume, idx);
             size++;
         }
     }
 
-    protected abstract void saveToArray(Resume resume, int positin);
-
-    public void update(Resume resume) {
-        int idx = findIndex(resume.getUuid());
-        if (idx >= 0) {
-            System.out.println("Резюме " + resume + " найдено, осуществляю update");
-            storage[idx] = resume;
-        } else {
-            System.out.println("Резюме " + resume + " не найдено, невозможно его обновить");
-        }
-    }
-
     public void delete(String uuid) {
         int idx = findIndex(uuid);
-        if (idx >= 0) {
-            System.out.println("Резюме " + uuid + " найдено, удаляю");
+        if (idx < 0) {
+            throw new NotExistStorageException(uuid);
+        } else {
             storage[idx] = null;
             if (size - idx + 1 >= 0)
                 System.arraycopy(storage, idx + 1, storage, idx, size - idx + 1);
             storage[size] = null;
             size--;
-        } else {
-            System.out.println("Резюме c uuid = " + uuid + " не найдено");
         }
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
-    }
-
-    public int size() {
-        return size;
-    }
+    protected abstract void saveToArray(Resume resume, int position);
 
     protected abstract int findIndex(String uuid);
 }
