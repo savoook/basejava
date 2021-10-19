@@ -76,7 +76,7 @@ abstract class AbstractArrayStorageTest {
 
     @Test
     void updateNotExist() throws Exception {
-        assertThrows(NotExistStorageException.class, () -> {storage.update(RESUME_NOT_EXIST);});
+        assertThrows(NotExistStorageException.class, () -> storage.update(RESUME_NOT_EXIST));
     }
 
     @Test
@@ -90,7 +90,7 @@ abstract class AbstractArrayStorageTest {
 
     @Test
     void saveExist() throws Exception {
-        assertThrows(ExistStorageException.class, () -> {storage.save(RESUME_EXIST);});
+        assertThrows(ExistStorageException.class, () -> storage.save(RESUME_EXIST));
     }
 
     @Test
@@ -105,7 +105,7 @@ abstract class AbstractArrayStorageTest {
         } catch (StorageException se) {
            fail("overflow occurred ahead of time");
         }
-        assertThrows(StorageException.class, () -> {storage.save(RESUME_NOT_EXIST);});
+        assertThrows(StorageException.class, () -> storage.save(RESUME_NOT_EXIST));
     }
 
     @Test
@@ -123,8 +123,6 @@ abstract class AbstractArrayStorageTest {
 
     @Test
     void deleteNotExist() throws Exception {
-        assertThrows(NotExistStorageException.class, () -> {
-            storage.delete(UUID_4);
-        });
+        assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_4));
     }
 }
