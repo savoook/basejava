@@ -14,15 +14,23 @@ abstract class AbstractArrayStorageTest {
     private final Storage storage;
 
     private static final String UUID_1 = "uuid1";
-    private static final Resume RESUME_1 = new Resume(UUID_1);
     private static final String UUID_2 = "uuid2";
-    private static final Resume RESUME_2 = new Resume(UUID_2);
     private static final String UUID_3 = "uuid3";
-    private static final Resume RESUME_3 = new Resume(UUID_3);
-
     private static final String UUID_4 = "uuid4";
-    private static final Resume RESUME_EXIST = new Resume(UUID_3);
-    private static final Resume RESUME_NOT_EXIST = new Resume(UUID_4);
+
+    private static final Resume RESUME_1;
+    private static final Resume RESUME_2;
+    private static final Resume RESUME_3;
+    private static final Resume RESUME_EXIST;
+    private static final Resume RESUME_NOT_EXIST;
+
+    static {
+        RESUME_1 = new Resume(UUID_1);
+        RESUME_2 = new Resume(UUID_2);
+        RESUME_3 = new Resume(UUID_3);
+        RESUME_EXIST = new Resume(UUID_3);
+        RESUME_NOT_EXIST = new Resume(UUID_4);
+    }
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -63,7 +71,9 @@ abstract class AbstractArrayStorageTest {
 
     @Test()
     void getNotExist() throws Exception {
-        assertThrows(NotExistStorageException.class, () -> {storage.get("dummy");});
+        assertThrows(NotExistStorageException.class, () -> {
+            storage.get("dummy");
+        });
     }
 
     @Test
@@ -103,7 +113,7 @@ abstract class AbstractArrayStorageTest {
                 storage.save(new Resume());
             }
         } catch (StorageException se) {
-           fail("overflow occurred ahead of time");
+            fail("overflow occurred ahead of time");
         }
         assertThrows(StorageException.class, () -> storage.save(RESUME_NOT_EXIST));
     }
