@@ -2,11 +2,11 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class ArrayListStorage extends ListStorage {
+public class LinkedListStorage extends ListStorage {
 
-    public ArrayListStorage() {
-        super(new ArrayList<Resume>());
+    public LinkedListStorage() {
+        super(new LinkedList<Resume>());
     }
 }
