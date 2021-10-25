@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-abstract class AbstractArrayStorageTest {
+abstract class AbstractStorageTest {
 
     private final Storage storage;
 
@@ -32,7 +32,7 @@ abstract class AbstractArrayStorageTest {
         RESUME_NOT_EXIST = new Resume(UUID_4);
     }
 
-    public AbstractArrayStorageTest(Storage storage) {
+    public AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 

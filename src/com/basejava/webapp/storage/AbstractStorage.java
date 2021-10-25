@@ -5,7 +5,6 @@ import com.basejava.webapp.exception.NotExistStorageException;
 import com.basejava.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
-    Object entity = new Object();
 
     protected abstract Resume abstractGet(int position);
 
@@ -41,6 +40,7 @@ public abstract class AbstractStorage implements Storage {
         if (position>=0){
             throw new ExistStorageException(resume.getUuid());
         }
+
         abstractSave(resume, position);
     }
 
