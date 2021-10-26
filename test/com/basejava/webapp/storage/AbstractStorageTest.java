@@ -105,9 +105,6 @@ abstract class AbstractStorageTest {
 
     @Test
     void saveWithOverflow() throws Exception {
-        //Arrays.fill(storage, 3, AbstractArrayStorage.STORAGE_LIMIT-1, new Resume());
-        //Resume[] resumes = storage.getAll();
-        //Arrays.fill(resumes, 3, AbstractArrayStorage.STORAGE_LIMIT-1, new Resume());
         try {
             for (int i = 3; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
@@ -120,10 +117,6 @@ abstract class AbstractStorageTest {
 
     @Test
     void delete() throws Exception {
-/*        Resume[] actual = storage.getAll();
-        Resume resume = actual[(new Random()).ints(0, storage.size() - 1).iterator().
-                nextInt()];
-        storage.delete(resume.getUuid());*/
         storage.delete(UUID_1);
         Resume[] actual = storage.getAll();
         Resume[] expected = new Resume[]{RESUME_2, RESUME_3};

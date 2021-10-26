@@ -13,27 +13,27 @@ public abstract class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume abstractGet(int position) {
+    protected Resume getResume(int position) {
         return /*map.get(Object)*/null;
     }
 
     @Override
-    protected void abstractUpdate(Resume resume, int position) {
-       /* map.put(Object, resume);*/
+    protected void updateResume(Resume resume, int position) {
+        /* map.put(Object, resume);*/
     }
 
     @Override
-    protected void abstractSave(Resume resume, int position) {
-       /* map.merge(Object, resume);*/
+    protected void saveResume(Resume resume, int position) {
+        /* map.merge(Object, resume);*/
     }
 
     @Override
-    protected void abstractDelete(String uuid, int position) {
+    protected void deleteResume(String uuid, int position) {
         map.remove(uuid);
     }
 
     @Override
-    protected int abstactFind(String uuid) {
+    protected int findIndex(String uuid) {
         return /*map.get(uuid)*/0;
     }
 

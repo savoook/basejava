@@ -6,51 +6,45 @@ import com.basejava.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected abstract Resume abstractGet(int position);
+    protected abstract Resume getResume(int position);
 
-    protected abstract void abstractUpdate(Resume resume, int position);
+    protected abstract void updateResume(Resume resume, int position);
 
-    protected abstract void abstractSave(Resume resume, int position);
+    protected abstract void saveResume(Resume resume, int position);
 
-    protected abstract void abstractDelete(String uuid, int position);
+    protected abstract void deleteResume(String uuid, int position);
 
-    /*    protected abstract void saveElement(Resume resume, int position);*/
-
-    protected abstract int abstactFind(String uuid);
-
+    protected abstract int findIndex(String uuid);
 
     public Resume get(String uuid) {
-        int position = abstactFind(uuid);
-        if (position<0){
+        int position = findIndex(uuid);
+        if (position < 0) {
             throw new NotExistStorageException(uuid);
         }
-        return abstractGet(position);
+        return getResume(position);
     }
 
     public void update(Resume resume) {
-        int position = abstactFind(resume.getUuid());
-        if (position<0){
+        int position = findIndex(resume.getUuid());
+        if (position < 0) {
             throw new NotExistStorageException(resume.getUuid());
         }
-        abstractUpdate(resume, position);
+        updateResume(resume, position);
     }
 
     public final void save(Resume resume) {
-        int position = abstactFind(resume.getUuid());
-        if (position>=0){
+        int position = findIndex(resume.getUuid());
+        if (position >= 0) {
             throw new ExistStorageException(resume.getUuid());
         }
-
-        abstractSave(resume, position);
+        saveResume(resume, position);
     }
 
     public void delete(String uuid) {
-        int position = abstactFind(uuid);
-        if (position<0){
+        int position = findIndex(uuid);
+        if (position < 0) {
             throw new NotExistStorageException(uuid);
         }
-        abstractDelete(uuid, position);
+        deleteResume(uuid, position);
     }
-
-
 }

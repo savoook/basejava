@@ -2,43 +2,37 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ListStorage extends AbstractStorage {
-    protected List<Resume> listStorage;
-
-    public ListStorage(List<Resume> listStorage) {
-        this.listStorage = listStorage;
-    }
+public class ListStorage extends AbstractStorage {
+    private static final List<Resume> listStorage = new ArrayList<>();
 
     @Override
-    protected Resume abstractGet(int position) {
+    protected Resume getResume(int position) {
         return listStorage.get(position);
     }
 
     @Override
-    protected void abstractUpdate(Resume resume, int position) {
+    protected void updateResume(Resume resume, int position) {
         listStorage.set(position, resume);
     }
 
     @Override
-    protected void abstractSave(Resume resume, int position) {
+    protected void saveResume(Resume resume, int position) {
         listStorage.add(resume);
     }
 
     @Override
-    protected void abstractDelete(String uuid, int position) {
+    protected void deleteResume(String uuid, int position) {
         listStorage.remove(position);
     }
 
     @Override
-    protected int abstactFind(String uuid) {
-        Iterator<Resume> it = listStorage.iterator();
-        while (it.hasNext()) {
-            Resume r = it.next();
-            if (r.getUuid().equals(uuid)) {
-                return listStorage.indexOf(r);
+    protected int findIndex(String uuid) {
+        for (int i = 0; i < listStorage.size(); i++) {
+            if (listStorage.get(i).getUuid().equals(uuid)) {
+                return i;
             }
         }
         return -1;
