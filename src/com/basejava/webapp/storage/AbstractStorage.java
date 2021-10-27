@@ -6,45 +6,43 @@ import com.basejava.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected abstract Resume getResume(int position);
+    protected abstract Resume getResume(Object position);
 
-    protected abstract void updateResume(Resume resume, int position);
+    protected abstract void updateResume(Resume resume, Object position);
 
-    protected abstract void saveResume(Resume resume, int position);
+    protected abstract void saveResume(Resume resume, Object position);
 
-    protected abstract void deleteResume(String uuid, int position);
+    protected abstract void deleteResume(Object position);
 
-    protected abstract int findIndex(String uuid);
+    protected abstract Object findIndex(String uuid);
+
+    protected abstract boolean elementExist(Object position);
 
     public Resume get(String uuid) {
-        int position = findIndex(uuid);
-        if (position < 0) {
+        Object position = findIndex(uuid);
+        if (!elementExist(position))
             throw new NotExistStorageException(uuid);
-        }
         return getResume(position);
     }
 
     public void update(Resume resume) {
-        int position = findIndex(resume.getUuid());
-        if (position < 0) {
+        Object position = findIndex(resume.getUuid());
+        if (!elementExist(position))
             throw new NotExistStorageException(resume.getUuid());
-        }
         updateResume(resume, position);
     }
 
     public final void save(Resume resume) {
-        int position = findIndex(resume.getUuid());
-        if (position >= 0) {
+        Object position = findIndex(resume.getUuid());
+        if (elementExist(position))
             throw new ExistStorageException(resume.getUuid());
-        }
         saveResume(resume, position);
     }
 
     public void delete(String uuid) {
-        int position = findIndex(uuid);
-        if (position < 0) {
+        Object position = findIndex(uuid);
+        if (!elementExist(position))
             throw new NotExistStorageException(uuid);
-        }
-        deleteResume(uuid, position);
+        deleteResume(position);
     }
 }

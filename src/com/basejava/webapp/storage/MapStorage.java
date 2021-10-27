@@ -3,38 +3,40 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public abstract class MapStorage extends AbstractStorage {
-    protected Map<String, Resume> map;
+public class MapStorage extends AbstractStorage {
+    private static final Map<String, Resume> map = new HashMap<>();
 
-    public MapStorage(Map<String, Resume> map) {
-        this.map = map;
+    @Override
+    protected Resume getResume(Object position) {
+        return map.get((String) position);
     }
 
     @Override
-    protected Resume getResume(int position) {
-        return /*map.get(Object)*/null;
+    protected void updateResume(Resume resume, Object position) {
+        map.put((String) position, resume);
     }
 
     @Override
-    protected void updateResume(Resume resume, int position) {
-        /* map.put(Object, resume);*/
+    protected void saveResume(Resume resume, Object position) {
+        map.put((String) position, resume);
     }
 
     @Override
-    protected void saveResume(Resume resume, int position) {
-        /* map.merge(Object, resume);*/
+    protected void deleteResume(Object position) {
+        map.remove((String) position);
     }
 
     @Override
-    protected void deleteResume(String uuid, int position) {
-        map.remove(uuid);
+    protected Object findIndex(String uuid) {
+        return uuid;
     }
 
     @Override
-    protected int findIndex(String uuid) {
-        return /*map.get(uuid)*/0;
+    protected boolean elementExist(Object position) {
+        return map.containsKey((String) position);
     }
 
     @Override
