@@ -3,11 +3,11 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
-    private static final Map<String, Resume> map = new HashMap<>();
+    private Map<String, Resume> map = new LinkedHashMap<>();
 
     @Override
     protected Resume getResume(Object position) {
@@ -30,7 +30,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object findIndex(String uuid) {
+    protected Object findPosition(String uuid) {
         return uuid;
     }
 

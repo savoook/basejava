@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    private static final List<Resume> listStorage = new ArrayList<>();
+    private List<Resume> listStorage = new ArrayList<>();
 
     @Override
     protected Resume getResume(Object position) {
@@ -29,7 +29,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object findIndex(String uuid) {
+    protected Object findPosition(String uuid) {
         for (int i = 0; i < listStorage.size(); i++) {
             if (listStorage.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -40,7 +40,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected boolean elementExist(Object position) {
-        return listStorage.size() > (int) position && (int) position >= 0;
+        return (int) position >= 0;
     }
 
     @Override

@@ -14,35 +14,41 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void deleteResume(Object position);
 
-    protected abstract Object findIndex(String uuid);
+    protected abstract Object findPosition(String uuid);
 
     protected abstract boolean elementExist(Object position);
 
     public Resume get(String uuid) {
-        Object position = findIndex(uuid);
-        if (!elementExist(position))
-            throw new NotExistStorageException(uuid);
+        Object position = getExistElement(uuid);
         return getResume(position);
     }
 
     public void update(Resume resume) {
-        Object position = findIndex(resume.getUuid());
-        if (!elementExist(position))
-            throw new NotExistStorageException(resume.getUuid());
+        Object position = getExistElement(resume.getUuid());
         updateResume(resume, position);
     }
 
     public final void save(Resume resume) {
-        Object position = findIndex(resume.getUuid());
-        if (elementExist(position))
-            throw new ExistStorageException(resume.getUuid());
+        Object position = getNotExistElement(resume.getUuid());
         saveResume(resume, position);
     }
 
     public void delete(String uuid) {
-        Object position = findIndex(uuid);
+        Object position = getExistElement(uuid);
+        deleteResume(position);
+    }
+
+    private Object getNotExistElement(String uuid) {
+        Object position = findPosition(uuid);
+        if (elementExist(position))
+            throw new ExistStorageException(uuid);
+        return position;
+    }
+
+    private Object getExistElement(String uuid) {
+        Object position = findPosition(uuid);
         if (!elementExist(position))
             throw new NotExistStorageException(uuid);
-        deleteResume(position);
+        return position;
     }
 }

@@ -57,13 +57,9 @@ abstract class AbstractStorageTest {
 
     @Test
     void getAll() throws Exception {
-        if ("MapStorage".equals(storage.getClass().getSimpleName())) {
-            assertTrue(true);
-        } else {
-            Resume[] actual = storage.getAll();
-            Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
-            assertArrayEquals(expected, actual);
-        }
+        Resume[] actual = storage.getAll();
+        Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
+        assertArrayEquals(expected, actual);
         assertEquals(3, storage.size());
     }
 
@@ -75,21 +71,15 @@ abstract class AbstractStorageTest {
 
     @Test()
     void getNotExist() throws Exception {
-        assertThrows(NotExistStorageException.class, () -> {
-            storage.get("dummy");
-        });
+        assertThrows(NotExistStorageException.class, () -> storage.get("dummy"));
     }
 
     @Test
     void update() throws Exception {
-        if ("MapStorage".equals(storage.getClass().getSimpleName())) {
-            assertTrue(true);
-        } else {
-            storage.update(RESUME_EXIST);
-            Resume[] actual = storage.getAll();
-            Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_EXIST};
-            assertArrayEquals(expected, actual);
-        }
+        storage.update(RESUME_EXIST);
+        Resume[] actual = storage.getAll();
+        Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_EXIST};
+        assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -100,13 +90,9 @@ abstract class AbstractStorageTest {
     @Test
     void save() throws Exception {
         storage.save(RESUME_NOT_EXIST);
-        if ("MapStorage".equals(storage.getClass().getSimpleName())) {
-            assertTrue(true);
-        } else {
-            Resume[] actual = storage.getAll();
-            Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3, RESUME_NOT_EXIST};
-            assertArrayEquals(expected, actual);
-        }
+        Resume[] actual = storage.getAll();
+        Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3, RESUME_NOT_EXIST};
+        assertArrayEquals(expected, actual);
         assertEquals(4, storage.size());
     }
 
@@ -118,7 +104,7 @@ abstract class AbstractStorageTest {
     //@DisabledIf("don't suitable for List")
     @Test
     void saveWithOverflow() throws Exception {
-        if ("ListStorage".equals(storage.getClass().getSimpleName())||"MapStorage".equals(storage.getClass().getSimpleName())) {
+        if ("ListStorage".equals(storage.getClass().getSimpleName()) || "MapStorage".equals(storage.getClass().getSimpleName())) {
             assertTrue(true);
         } else {
             try {
