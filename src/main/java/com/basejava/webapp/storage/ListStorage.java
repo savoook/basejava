@@ -3,7 +3,9 @@ package com.basejava.webapp.storage;
 import com.basejava.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListStorage extends AbstractStorage {
     private List<Resume> listStorage = new ArrayList<>();
@@ -49,9 +51,14 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
+    public List<Resume> getAllSorted() {
+        return listStorage.stream().sorted(Comparator.comparing(Resume::getFullName)).collect(Collectors.toList());
+    }
+
+/*    @Override
     public Resume[] getAll() {
         return listStorage.toArray(new Resume[listStorage.size()]);
-    }
+    }*/
 
     @Override
     public int size() {

@@ -3,8 +3,11 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
+import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MapStorage extends AbstractStorage {
     private Map<String, Resume> map = new LinkedHashMap<>();
@@ -45,9 +48,14 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
+    public List<Resume> getAllSorted() {
+        return map.values().stream().sorted(Comparator.comparing(Resume::getFullName)).collect(Collectors.toList());
+    }
+
+/*    @Override
     public Resume[] getAll() {
         return map.values().toArray(new Resume[map.size()]);
-    }
+    }*/
 
     @Override
     public int size() {

@@ -1,23 +1,23 @@
 package com.basejava.webapp;
 
 import com.basejava.webapp.model.Resume;
-import com.basejava.webapp.storage.SortedArrayStorage;
+import com.basejava.webapp.storage.MapStorage2;
 import com.basejava.webapp.storage.Storage;
 
 /**
  * Test for your com.basejava.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
+    private static final Storage ARRAY_STORAGE = new MapStorage2();
 
     public static void main(String[] args) {
-        final Resume r1 = new Resume("uuid2");
-        final Resume r2 = new Resume("uuid3");
-        final Resume r3 = new Resume("uuid5");
-        final Resume r4 = new Resume("uuid1");
-        final Resume r5 = new Resume("uuid6");
-        final Resume r6 = new Resume("uuid4");
-        final Resume r7 = new Resume("uuid2");
+        final Resume r1 = new Resume("uuid2", "Person2");
+        final Resume r2 = new Resume("uuid3", "Person3");
+        final Resume r3 = new Resume("uuid5", "Person5");
+        final Resume r4 = new Resume("uuid1", "Person1");
+        final Resume r5 = new Resume("uuid6", "Person6");
+        final Resume r6 = new Resume("uuid4", "Person4");
+        final Resume r7 = new Resume("uuid2", "Person2");
 
 
         ARRAY_STORAGE.save(r1);
@@ -51,7 +51,7 @@ public class MainTestArrayStorage {
 
     static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : ARRAY_STORAGE.getAll()) {
+        for (Resume r : ARRAY_STORAGE.getAllSorted()) {
             System.out.println(r);
         }
     }
