@@ -22,6 +22,6 @@ abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         } catch (StorageException se) {
             fail("overflow occurred ahead of time");
         }
-        assertThrows(StorageException.class, () -> storage.save(RESUME_NOT_EXIST));
+        assertThrows(StorageException.class, () -> storage.save(resumeNotExist));
     }
 }

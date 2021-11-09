@@ -21,23 +21,23 @@ abstract class AbstractStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
 
-    private static final String FullName_1 = "Person1";
-    private static final String FullName_2 = "Person2";
-    private static final String FullName_3 = "Person3";
-    private static final String FullName_4 = "Person4";
+    private static final String FULL_NAME_1 = "Person1";
+    private static final String FULL_NAME_2 = "Person2";
+    private static final String FULL_NAME_3 = "Person3";
+    private static final String FULL_NAME_4 = "Person4";
 
-    private static final Resume RESUME_1;
-    private static final Resume RESUME_2;
-    private static final Resume RESUME_3;
-    protected static final Resume RESUME_EXIST;
-    protected static final Resume RESUME_NOT_EXIST;
+    private final Resume resume1;
+    private final Resume resume2;
+    private final Resume resume3;
+    protected final Resume resumeExist;
+    protected final Resume resumeNotExist;
 
-    static {
-        RESUME_1 = new Resume(UUID_1, FullName_1);
-        RESUME_2 = new Resume(UUID_2,FullName_2);
-        RESUME_3 = new Resume(UUID_3,FullName_3);
-        RESUME_EXIST = new Resume(UUID_3,FullName_3);
-        RESUME_NOT_EXIST = new Resume(UUID_4,FullName_4);
+    {
+        resume1 = new Resume(UUID_1, FULL_NAME_1);
+        resume2 = new Resume(UUID_2, FULL_NAME_2);
+        resume3 = new Resume(UUID_3, FULL_NAME_3);
+        resumeExist = new Resume(UUID_3, FULL_NAME_3);
+        resumeNotExist = new Resume(UUID_4, FULL_NAME_4);
     }
 
     public AbstractStorageTest(Storage storage) {
@@ -47,9 +47,9 @@ abstract class AbstractStorageTest {
     @BeforeEach
     public void SetUp() throws Exception {
         storage.clear();
-        storage.save(RESUME_1);
-        storage.save(RESUME_2);
-        storage.save(RESUME_3);
+        storage.save(resume1);
+        storage.save(resume2);
+        storage.save(resume3);
     }
 
     @Test
@@ -64,17 +64,17 @@ abstract class AbstractStorageTest {
     }
 
     @Test
-    void getAll() throws Exception {
-        Resume[] actual = storage.getAllSorted().toArray(Resume[]::new);
-        Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
-        assertArrayEquals(expected, actual);
+    void getAllSorted() throws Exception {
+        List<Resume> actual = storage.getAllSorted();
+        List<Resume> expected = new ArrayList<>(Arrays.asList(resume1, resume2, resume3));
+        assertEquals(expected, actual);
         assertEquals(3, storage.size());
     }
 
     @Test
     void get() throws Exception {
         Resume actual = storage.get(UUID_2);
-        assertEquals(RESUME_2, actual);
+        assertEquals(resume2, actual);
     }
 
     @Test()
@@ -84,36 +84,36 @@ abstract class AbstractStorageTest {
 
     @Test
     void update() throws Exception {
-        storage.update(RESUME_EXIST);
-        Resume[] actual = storage.getAllSorted().toArray(Resume[]::new);
-        Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_EXIST};
-        assertArrayEquals(expected, actual);
+        storage.update(resumeExist);
+        List<Resume> actual = storage.getAllSorted();
+        List<Resume> expected = new ArrayList<>(Arrays.asList(resume1, resume2, resumeExist));
+        assertEquals(expected, actual);
     }
 
     @Test
     void updateNotExist() throws Exception {
-        assertThrows(NotExistStorageException.class, () -> storage.update(RESUME_NOT_EXIST));
+        assertThrows(NotExistStorageException.class, () -> storage.update(resumeNotExist));
     }
 
     @Test
     void save() throws Exception {
-        storage.save(RESUME_NOT_EXIST);
-        Resume[] actual = storage.getAllSorted().toArray(Resume[]::new);
-        Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3, RESUME_NOT_EXIST};
-        assertArrayEquals(expected, actual);
+        storage.save(resumeNotExist);
+        List<Resume> actual = storage.getAllSorted();
+        List<Resume> expected = new ArrayList<>(Arrays.asList(resume1, resume2, resume3, resumeNotExist));
+        assertEquals(expected, actual);
         assertEquals(4, storage.size());
     }
 
     @Test
     void saveExist() throws Exception {
-        assertThrows(ExistStorageException.class, () -> storage.save(RESUME_EXIST));
+        assertThrows(ExistStorageException.class, () -> storage.save(resumeExist));
     }
 
     @Test
     void delete() throws Exception {
         storage.delete(UUID_1);
         List<Resume> actual = storage.getAllSorted();
-        List<Resume> expected = new ArrayList<Resume>(Arrays.asList(RESUME_2, RESUME_3));
+        List<Resume> expected = new ArrayList<>(Arrays.asList(resume2, resume3));
         assertEquals(expected, actual);
         assertEquals(2, storage.size());
     }

@@ -3,59 +3,53 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
 
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-public class MapStorage2 extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage {
     private Map<String, Resume> map = new LinkedHashMap<>();
 
     @Override
     protected Resume getResume(Object position) {
-        return (Resume) position;
+        return map.get((String) position);
     }
 
     @Override
     protected void updateResume(Resume resume, Object position) {
-        map.put(resume.getUuid(), resume);
+        map.put((String) position, resume);
     }
 
     @Override
     protected void saveResume(Resume resume, Object position) {
-        map.put(resume.getUuid(), resume);
+        map.put((String) position, resume);
     }
 
     @Override
     protected void deleteResume(Object position) {
-        map.remove(((Resume) position).getUuid());
+        map.remove((String) position);
     }
 
     @Override
     protected Object findPosition(String uuid) {
-        return map.get(uuid);
+        return uuid;
     }
 
     @Override
-    protected boolean elementExist(Object position) {
-        return (Resume) position != null;
+    protected boolean isExist(Object position) {
+        return map.containsKey((String) position);
+    }
+
+    @Override
+    protected List<Resume> toList() {
+        return new ArrayList<>(map.values());
     }
 
     @Override
     public void clear() {
         map.clear();
     }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        return map.values().stream().sorted(Comparator.comparing(Resume::getFullName)).collect(Collectors.toList());
-    }
-
-/*    @Override
-    public Resume[] getAll() {
-        return map.values().toArray(new Resume[map.size()]);
-    }*/
 
     @Override
     public int size() {
