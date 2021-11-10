@@ -26,19 +26,11 @@ abstract class AbstractStorageTest {
     private static final String FULL_NAME_3 = "Person3";
     private static final String FULL_NAME_4 = "Person4";
 
-    private final Resume resume1;
-    private final Resume resume2;
-    private final Resume resume3;
-    protected final Resume resumeExist;
-    protected final Resume resumeNotExist;
-
-    {
-        resume1 = new Resume(UUID_1, FULL_NAME_1);
-        resume2 = new Resume(UUID_2, FULL_NAME_2);
-        resume3 = new Resume(UUID_3, FULL_NAME_3);
-        resumeExist = new Resume(UUID_3, FULL_NAME_3);
-        resumeNotExist = new Resume(UUID_4, FULL_NAME_4);
-    }
+    private final Resume resume1 = new Resume(UUID_1, FULL_NAME_1);
+    private final Resume resume2 = new Resume(UUID_2, FULL_NAME_2);
+    private final Resume resume3 = new Resume(UUID_3, FULL_NAME_3);
+    protected final Resume resumeExist = new Resume(UUID_3, FULL_NAME_3);
+    protected final Resume resumeNotExist = new Resume(UUID_4, FULL_NAME_4);
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -65,9 +57,7 @@ abstract class AbstractStorageTest {
 
     @Test
     void getAllSorted() throws Exception {
-        List<Resume> actual = storage.getAllSorted();
-        List<Resume> expected = new ArrayList<>(Arrays.asList(resume1, resume2, resume3));
-        assertEquals(expected, actual);
+        checkList(resume1, resume2, resume3);
         assertEquals(3, storage.size());
     }
 
@@ -85,9 +75,7 @@ abstract class AbstractStorageTest {
     @Test
     void update() throws Exception {
         storage.update(resumeExist);
-        List<Resume> actual = storage.getAllSorted();
-        List<Resume> expected = new ArrayList<>(Arrays.asList(resume1, resume2, resumeExist));
-        assertEquals(expected, actual);
+        checkList(resume1, resume2, resumeExist);
     }
 
     @Test
@@ -98,9 +86,7 @@ abstract class AbstractStorageTest {
     @Test
     void save() throws Exception {
         storage.save(resumeNotExist);
-        List<Resume> actual = storage.getAllSorted();
-        List<Resume> expected = new ArrayList<>(Arrays.asList(resume1, resume2, resume3, resumeNotExist));
-        assertEquals(expected, actual);
+        checkList(resume1, resume2, resume3, resumeNotExist);
         assertEquals(4, storage.size());
     }
 
@@ -112,14 +98,19 @@ abstract class AbstractStorageTest {
     @Test
     void delete() throws Exception {
         storage.delete(UUID_1);
-        List<Resume> actual = storage.getAllSorted();
-        List<Resume> expected = new ArrayList<>(Arrays.asList(resume2, resume3));
-        assertEquals(expected, actual);
+        checkList(resume2, resume3);
         assertEquals(2, storage.size());
     }
 
     @Test
     void deleteNotExist() throws Exception {
         assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_4));
+    }
+
+    @Test
+    private void checkList(Resume... resumes) {
+        List<Resume> actual = storage.getAllSorted();
+        List<Resume> expected = new ArrayList<>(Arrays.asList(resumes));
+        assertEquals(expected, actual);
     }
 }
