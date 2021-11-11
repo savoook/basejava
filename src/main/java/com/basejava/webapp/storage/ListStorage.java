@@ -5,31 +5,31 @@ import com.basejava.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
     private List<Resume> listStorage = new ArrayList<>();
 
     @Override
-    protected Resume getResume(Object position) {
-        return listStorage.get((int) position);
+    protected Resume getResume(Integer position) {
+        return listStorage.get(position);
     }
 
     @Override
-    protected void updateResume(Resume resume, Object position) {
-        listStorage.set((int) position, resume);
+    protected void updateResume(Resume resume, Integer position) {
+        listStorage.set(position, resume);
     }
 
     @Override
-    protected void saveResume(Resume resume, Object position) {
+    protected void saveResume(Resume resume, Integer position) {
         listStorage.add(resume);
     }
 
     @Override
-    protected void deleteResume(Object position) {
-        listStorage.remove((int) position);
+    protected void deleteResume(Integer position) {
+        listStorage.remove(position.intValue());
     }
 
     @Override
-    protected Object findPosition(String uuid) {
+    protected Integer findPosition(String uuid) {
         for (int i = 0; i < listStorage.size(); i++) {
             if (listStorage.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -39,13 +39,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object position) {
-        return (int) position >= 0;
+    protected boolean isExist(Integer position) {
+        return position >= 0;
     }
 
     @Override
     protected List<Resume> toList() {
-        return listStorage;
+        return new ArrayList<>(listStorage);
     }
 
     @Override

@@ -7,51 +7,51 @@ import com.basejava.webapp.model.Resume;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractStorage implements Storage {
+public abstract class AbstractStorage<SK> implements Storage {
 
-    protected abstract Resume getResume(Object position);
+    protected abstract Resume getResume(SK position);
 
-    protected abstract void updateResume(Resume resume, Object position);
+    protected abstract void updateResume(Resume resume, SK position);
 
-    protected abstract void saveResume(Resume resume, Object position);
+    protected abstract void saveResume(Resume resume, SK position);
 
-    protected abstract void deleteResume(Object position);
+    protected abstract void deleteResume(SK position);
 
-    protected abstract Object findPosition(String uuid);
+    protected abstract SK findPosition(String uuid);
 
-    protected abstract boolean isExist(Object position);
+    protected abstract boolean isExist(SK position);
 
     protected abstract List<Resume> toList();
 
     public Resume get(String uuid) {
-        Object position = getExistResume(uuid);
+        SK position = getExistResume(uuid);
         return getResume(position);
     }
 
     public void update(Resume resume) {
-        Object position = getExistResume(resume.getUuid());
+        SK position = getExistResume(resume.getUuid());
         updateResume(resume, position);
     }
 
     public final void save(Resume resume) {
-        Object position = getNotExistResume(resume.getUuid());
+        SK position = getNotExistResume(resume.getUuid());
         saveResume(resume, position);
     }
 
     public void delete(String uuid) {
-        Object position = getExistResume(uuid);
+        SK position = getExistResume(uuid);
         deleteResume(position);
     }
 
-    private Object getNotExistResume(String uuid) {
-        Object position = findPosition(uuid);
+    private SK getNotExistResume(String uuid) {
+        SK position = findPosition(uuid);
         if (isExist(position))
             throw new ExistStorageException(uuid);
         return position;
     }
 
-    private Object getExistResume(String uuid) {
-        Object position = findPosition(uuid);
+    private SK getExistResume(String uuid) {
+        SK position = findPosition(uuid);
         if (!isExist(position))
             throw new NotExistStorageException(uuid);
         return position;
