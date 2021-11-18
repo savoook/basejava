@@ -10,16 +10,16 @@ import java.util.Map;
 public class ResumeTestData {
     public static void main(String[] args) {
         Resume resume = new Resume("Григорий Кислин");
-        Map<Contacts, String> contacts = resume.getContacts();
+        Map<ContactType, String> contacts = resume.getContacts();
         Map<SectionType, AbstractSection> sections = resume.getSections();
 
-        contacts.put(Contacts.PHONE, "+7(921) 855-0482");
-        contacts.put(Contacts.EMAIL, "gkislin@yandex.ru");
-        contacts.put(Contacts.GITHUB, "https://github.com/gkislin");
-        contacts.put(Contacts.HOMEPAGE, "http://gkislin.ru");
-        contacts.put(Contacts.LINKEDIN, "https://www.linkedin.com/in/gkislin");
-        contacts.put(Contacts.SKYPE, "grigory.kislin");
-        contacts.put(Contacts.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        contacts.put(ContactType.PHONE, "+7(921) 855-0482");
+        contacts.put(ContactType.EMAIL, "gkislin@yandex.ru");
+        contacts.put(ContactType.GITHUB, "https://github.com/gkislin");
+        contacts.put(ContactType.HOMEPAGE, "http://gkislin.ru");
+        contacts.put(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
+        contacts.put(ContactType.SKYPE, "grigory.kislin");
+        contacts.put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
 
         AbstractSection objective = new StringSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
         AbstractSection personal = new StringSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
@@ -50,17 +50,17 @@ public class ResumeTestData {
                 "Родной русский, английский \"upper intermediate\""
         )));
 
-        Organization org1 = new Organization("Java Online Projects", LocalDate.of(2013,10,1),
+        Organization org1 = new Organization("Java Online Projects","https://javaops.ru", LocalDate.of(2013,10,1),
                 LocalDate.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.");
-        Organization org2 = new Organization("Wrike", LocalDate.of(2014, 10, 1),
+        Organization org2 = new Organization("Wrike","https://www.wrike.com", LocalDate.of(2014, 10, 1),
                 LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
 
         AbstractSection experience = new ExperienceSection(Arrays.asList(org1, org2));
 
-        Organization org3 = new Organization("Coursera", LocalDate.of(2013, 3, 1),
-                LocalDate.of(2013, 5, 1), "\"Functional Programming Principles in Scala\" by Martin Odersky");
-        Organization org4 = new Organization("Luxoft", LocalDate.of(2011, 3, 1),
-                LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"");
+        Organization org3 = new Organization("Coursera","https://www.coursera.org/learn/scala-functional-programming", LocalDate.of(2013, 3, 1),
+                LocalDate.of(2013, 5, 1), "\"Functional Programming Principles in Scala\" by Martin Odersky", null);
+        Organization org4 = new Organization("Luxoft","https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html", LocalDate.of(2011, 3, 1),
+                LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",null);
 
         AbstractSection education = new ExperienceSection(Arrays.asList(org3, org4));
 
@@ -72,6 +72,5 @@ public class ResumeTestData {
         sections.put(SectionType.EDUCATION, education);
 
         System.out.println(resume);
-
     }
 }

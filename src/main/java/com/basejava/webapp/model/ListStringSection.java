@@ -7,18 +7,8 @@ public class ListStringSection extends AbstractSection {
 
     private List<String> descriptions;
 
-    public ListStringSection() {
-    }
-
     public ListStringSection(List<String> descriptions) {
-        this.descriptions = descriptions;
-    }
-
-    public List<String> getDescriptions() {
-        return descriptions;
-    }
-
-    public void setDescriptions(List<String> descriptions) {
+        Objects.requireNonNull(descriptions, "descriptions must not be null");
         this.descriptions = descriptions;
     }
 
@@ -27,7 +17,7 @@ public class ListStringSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListStringSection that = (ListStringSection) o;
-        return Objects.equals(descriptions, that.descriptions);
+        return descriptions.equals(that.descriptions);
     }
 
     @Override
@@ -37,7 +27,6 @@ public class ListStringSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return "" + descriptions;
-
+        return descriptions.toString();
     }
 }

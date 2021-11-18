@@ -1,9 +1,6 @@
 package com.basejava.webapp.model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Initial resume class
@@ -13,16 +10,8 @@ public class Resume implements Comparable<Resume> {
     // Unique identifier
     private final String uuid;
     private String fullName;
-    private final Map<Contacts, String> contacts = new HashMap<>();
-    private final Map<SectionType, AbstractSection> sections = new HashMap<>();
-//    private Contacts contacts;
-//    private Block<String> Personal;
-//    private Block<String> objective;
-//    private Block<LifeCycle> experience;
-//    private Block<LifeCycle> education;
-//    private Block<ArrayList<String>> achievement;
-//    private Block<ArrayList<String>> qualifications;
-
+    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -43,7 +32,7 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
-    public Map<Contacts, String> getContacts() {
+    public Map<ContactType, String> getContacts() {
         return contacts;
     }
 
@@ -55,18 +44,16 @@ public class Resume implements Comparable<Resume> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Resume resume = (Resume) o;
-
-        if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
+        return uuid.equals(resume.uuid) &&
+                fullName.equals(resume.fullName) &&
+                Objects.equals(contacts, resume.contacts) &&
+                Objects.equals(sections, resume.sections);
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + fullName.hashCode();
-        return result;
+        return Objects.hash(uuid, fullName, contacts, sections);
     }
 
     @Override

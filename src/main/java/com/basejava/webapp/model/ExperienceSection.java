@@ -6,8 +6,9 @@ import java.util.Objects;
 public class ExperienceSection extends AbstractSection {
     private List<Organization> organizations;
 
-    public List<Organization> getOrganizations() {
-        return organizations;
+    public ExperienceSection(List<Organization> organizations) {
+        Objects.requireNonNull(organizations, "organizations must not be null");
+        this.organizations = organizations;
     }
 
     @Override
@@ -15,7 +16,7 @@ public class ExperienceSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ExperienceSection that = (ExperienceSection) o;
-        return Objects.equals(organizations, that.organizations);
+        return organizations.equals(that.organizations);
     }
 
     @Override
@@ -23,15 +24,9 @@ public class ExperienceSection extends AbstractSection {
         return Objects.hash(organizations);
     }
 
-    public ExperienceSection(List<Organization> organizations) {
-        this.organizations = organizations;
-
-
-    }
-
     @Override
     public String toString() {
-        return "" + organizations;
+        return organizations.toString();
     }
 }
 
