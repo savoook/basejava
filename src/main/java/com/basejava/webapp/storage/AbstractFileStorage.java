@@ -106,7 +106,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         if (directory.length() != 0) {
             for (File f : Objects.requireNonNull(directory.listFiles())) {
                 if (f.isFile()) {
-                    f.delete()
+                    f.delete();
                 }
             }
         }
