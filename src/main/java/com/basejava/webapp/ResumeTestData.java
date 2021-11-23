@@ -5,6 +5,7 @@ import com.basejava.webapp.model.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 public class ResumeTestData {
@@ -50,17 +51,24 @@ public class ResumeTestData {
                 "Родной русский, английский \"upper intermediate\""
         )));
 
-        Organization org1 = new Organization("Java Online Projects","https://javaops.ru", LocalDate.of(2013,10,1),
+        Period per1 = new Period(LocalDate.of(2013,10,1),
                 LocalDate.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.");
-        Organization org2 = new Organization("Wrike","https://www.wrike.com", LocalDate.of(2014, 10, 1),
+        Period per21 = new Period(LocalDate.of(2012,10,1),
+                LocalDate.of(2013,10,1), "Автор проекта.", "Создание, организация и проведение Java онлайн проектов и стажировок.");
+        Period per2 = new Period(LocalDate.of(2014, 10, 1),
                 LocalDate.of(2016, 1, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.");
+        Period per3 = new Period(LocalDate.of(2013, 3, 1),
+                LocalDate.of(2013, 5, 1), "\"Functional Programming Principles in Scala\" by Martin Odersky", null);
+        Period per4 = new Period(LocalDate.of(2011, 3, 1),
+                LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",null);
+
+        Organization org1 = new Organization("Java Online Projects","https://javaops.ru", new ArrayList<>(Arrays.asList(per1, per21)));
+        Organization org2 = new Organization("Wrike","https://www.wrike.com", new ArrayList<>(Collections.singletonList(per2)));
 
         AbstractSection experience = new ExperienceSection(Arrays.asList(org1, org2));
 
-        Organization org3 = new Organization("Coursera","https://www.coursera.org/learn/scala-functional-programming", LocalDate.of(2013, 3, 1),
-                LocalDate.of(2013, 5, 1), "\"Functional Programming Principles in Scala\" by Martin Odersky", null);
-        Organization org4 = new Organization("Luxoft","https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html", LocalDate.of(2011, 3, 1),
-                LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",null);
+        Organization org3 = new Organization("Coursera","https://www.coursera.org/learn/scala-functional-programming", new ArrayList<>(Collections.singletonList(per3)));
+        Organization org4 = new Organization("Luxoft","https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html", new ArrayList<>(Collections.singletonList(per4)));
 
         AbstractSection education = new ExperienceSection(Arrays.asList(org3, org4));
 

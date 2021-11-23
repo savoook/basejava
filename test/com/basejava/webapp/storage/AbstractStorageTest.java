@@ -2,10 +2,11 @@ package com.basejava.webapp.storage;
 
 import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.exception.NotExistStorageException;
-import com.basejava.webapp.model.Resume;
+import com.basejava.webapp.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +35,18 @@ abstract class AbstractStorageTest {
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
+    }
+
+    {
+        resume1.fillContact(ContactType.PHONE, "987");
+        ArrayList<Period> periods = new ArrayList<>();
+        Period period = new Period(LocalDate.of(2011, 3, 1),
+                LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС." +
+                " Концептуальное моделирование на UML.\"", null);
+        periods.add(period);
+        Organization org = new Organization("Школа", "www", periods);
+        ArrayList<Organization> organizations = new ArrayList<>();
+        resume1.fillSection(SectionType.EDUCATION, new ExperienceSection(organizations));
     }
 
     @BeforeEach

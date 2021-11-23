@@ -39,7 +39,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     }
 
     public final void save(Resume resume) {
-        LOG.info("save " + resume);
+        //LOG.info("save " + resume);
         SK position = getNotExistResume(resume.getUuid());
         saveResume(resume, position);
     }
