@@ -3,7 +3,7 @@ package com.basejava.webapp;
 import java.io.File;
 import java.util.Objects;
 
-public class Main {
+public class ListOfProjectFiles {
 
     static StringBuilder sep = new StringBuilder();
 
@@ -22,18 +22,13 @@ public class Main {
 
     static void printFileName(File dir) {
         for (File f : Objects.requireNonNull(dir.listFiles())) {
-            print(f);
+            System.out.println(sep + f.getName());
             if (f.isDirectory()) {
                 sep.append("-");
                 printFileName(f);
             }
         }
-        //sep.setLength(sep.length() - 1);
         if (sep.length() > 0)
             sep.deleteCharAt(sep.length() - 1);
-    }
-
-    static void print(File f) {
-        System.out.println(sep + f.getName());
     }
 }

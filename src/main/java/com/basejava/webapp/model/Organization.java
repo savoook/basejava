@@ -1,5 +1,7 @@
 package com.basejava.webapp.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,11 +11,15 @@ public class Organization {
     private final List<Period> periodList;
 
 
-    public Organization(String name, String url, List<Period> periodList) {
+    public Organization(String name, String url, Period... periods) {
+        this.homepage = new Link(name, url);
+        this.periodList = Arrays.asList(periods);
+    }
+
+    public Organization(String name, String url, ArrayList<Period> periodList) {
         Objects.requireNonNull(periodList, "periodList must not be null");
         this.homepage = new Link(name, url);
         this.periodList = periodList;
-
     }
 
     @Override

@@ -28,29 +28,29 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     public Resume get(String uuid) {
         LOG.info("get " + uuid);
-        SK position = getExistResume(uuid);
+        SK position = getExistSearchKey(uuid);
         return getResume(position);
     }
 
     public void update(Resume resume) {
         LOG.info("update " + resume);
-        SK position = getExistResume(resume.getUuid());
+        SK position = getExistSearchKey(resume.getUuid());
         updateResume(resume, position);
     }
 
     public final void save(Resume resume) {
         //LOG.info("save " + resume);
-        SK position = getNotExistResume(resume.getUuid());
+        SK position = getNotExistSearchKey(resume.getUuid());
         saveResume(resume, position);
     }
 
     public void delete(String uuid) {
         LOG.info("delete " + uuid);
-        SK position = getExistResume(uuid);
+        SK position = getExistSearchKey(uuid);
         deleteResume(position);
     }
 
-    private SK getNotExistResume(String uuid) {
+    private SK getNotExistSearchKey(String uuid) {
         SK position = findPosition(uuid);
         if (isExist(position)) {
             LOG.warning("Resume " + uuid + " already exist");
@@ -59,7 +59,7 @@ public abstract class AbstractStorage<SK> implements Storage {
         return position;
     }
 
-    private SK getExistResume(String uuid) {
+    private SK getExistSearchKey(String uuid) {
         SK position = findPosition(uuid);
         if (!isExist(position)) {
             LOG.warning("Resume " + uuid + " not exist");

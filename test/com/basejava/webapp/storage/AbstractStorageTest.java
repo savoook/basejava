@@ -1,17 +1,18 @@
 package com.basejava.webapp.storage;
 
+import com.basejava.webapp.ResumeTestData;
 import com.basejava.webapp.exception.ExistStorageException;
 import com.basejava.webapp.exception.NotExistStorageException;
-import com.basejava.webapp.model.*;
+import com.basejava.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract class AbstractStorageTest {
 
@@ -27,30 +28,18 @@ abstract class AbstractStorageTest {
     private static final String FULL_NAME_3 = "Person3";
     private static final String FULL_NAME_4 = "Person4";
 
-    private final Resume resume1 = new Resume(UUID_1, FULL_NAME_1);
-    private final Resume resume2 = new Resume(UUID_2, FULL_NAME_2);
-    private final Resume resume3 = new Resume(UUID_3, FULL_NAME_3);
-    protected final Resume resumeExist = new Resume(UUID_3, FULL_NAME_3);
-    protected final Resume resumeNotExist = new Resume(UUID_4, FULL_NAME_4);
+    private final Resume resume1 = ResumeTestData.createResume(UUID_1, FULL_NAME_1);
+    private final Resume resume2 = ResumeTestData.createResume(UUID_2, FULL_NAME_2);
+    private final Resume resume3 = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
+    protected final Resume resumeExist = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
+    protected final Resume resumeNotExist = ResumeTestData.createResume(UUID_4, FULL_NAME_4);
 
-    public AbstractStorageTest(Storage storage) {
+     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
-    {
-        resume1.fillContact(ContactType.PHONE, "987");
-        ArrayList<Period> periods = new ArrayList<>();
-        Period period = new Period(LocalDate.of(2011, 3, 1),
-                LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС." +
-                " Концептуальное моделирование на UML.\"", null);
-        periods.add(period);
-        Organization org = new Organization("Школа", "www", periods);
-        ArrayList<Organization> organizations = new ArrayList<>();
-        resume1.fillSection(SectionType.EDUCATION, new ExperienceSection(organizations));
-    }
-
     @BeforeEach
-    public void SetUp() throws Exception {
+    public void setUp() throws Exception {
         storage.clear();
         storage.save(resume1);
         storage.save(resume2);
