@@ -5,11 +5,12 @@ import com.basejava.webapp.model.Resume;
 import java.util.List;
 
 public interface Storage {
+
     void clear();
 
-    void save(Resume resume);
-
     void update(Resume resume);
+
+    void save(Resume resume);
 
     Resume get(String uuid);
 

@@ -3,7 +3,6 @@ package com.basejava.webapp.model;
 import java.util.Objects;
 
 public class Link {
-
     private String name;
     private String url;
 

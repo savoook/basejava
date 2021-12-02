@@ -12,43 +12,43 @@ public class MapUuidStorage extends AbstractStorage<String> {
     private Map<String, Resume> map = new LinkedHashMap<>();
 
     @Override
-    protected Resume getResume(String position) {
-        return map.get(position);
-    }
-
-    @Override
-    protected void updateResume(Resume resume, String position) {
-        map.put(position, resume);
-    }
-
-    @Override
-    protected void saveResume(Resume resume, String position) {
-        map.put(position, resume);
-    }
-
-    @Override
-    protected void deleteResume(String position) {
-        map.remove(position);
-    }
-
-    @Override
-    protected String findPosition(String uuid) {
+    protected String getSearchKey(String uuid) {
         return uuid;
     }
 
     @Override
-    protected boolean isExist(String position) {
-        return map.containsKey(position);
+    protected void doUpdate(Resume resume, String searchKey) {
+        map.put(searchKey, resume);
     }
 
     @Override
-    protected List<Resume> toList() {
-        return new ArrayList<>(map.values());
+    protected boolean isExist(String searchKey) {
+        return map.containsKey(searchKey);
+    }
+
+    @Override
+    protected void doSave(Resume resume, String searchKey) {
+        map.put(searchKey, resume);
+    }
+
+    @Override
+    protected Resume doGet(String searchKey) {
+        return map.get(searchKey);
+    }
+
+    @Override
+    protected void doDelete(String searchKey) {
+        map.remove(searchKey);
     }
 
     @Override
     public void clear() {
         map.clear();
+    }
+
+    @Override
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
     }
 
     @Override

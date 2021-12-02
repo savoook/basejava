@@ -6,55 +6,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage<Integer> {
-    private List<Resume> listStorage = new ArrayList<>();
+    private List<Resume> list = new ArrayList<>();
 
     @Override
-    protected Resume getResume(Integer position) {
-        return listStorage.get(position);
-    }
-
-    @Override
-    protected void updateResume(Resume resume, Integer position) {
-        listStorage.set(position, resume);
-    }
-
-    @Override
-    protected void saveResume(Resume resume, Integer position) {
-        listStorage.add(resume);
-    }
-
-    @Override
-    protected void deleteResume(Integer position) {
-        listStorage.remove(position.intValue());
-    }
-
-    @Override
-    protected Integer findPosition(String uuid) {
-        for (int i = 0; i < listStorage.size(); i++) {
-            if (listStorage.get(i).getUuid().equals(uuid)) {
+    protected Integer getSearchKey(String uuid) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getUuid().equals(uuid)) {
                 return i;
             }
         }
-        return -1;
+        return null;
     }
 
     @Override
-    protected boolean isExist(Integer position) {
-        return position >= 0;
+    protected boolean isExist(Integer searchKey) {
+        return searchKey != null;
     }
 
     @Override
-    protected List<Resume> toList() {
-        return new ArrayList<>(listStorage);
+    protected void doUpdate(Resume resume, Integer searchKey) {
+        list.set(searchKey, resume);
+    }
+
+    @Override
+    protected void doSave(Resume resume, Integer searchKey) {
+        list.add(resume);
+    }
+
+    @Override
+    protected void doDelete(Integer searchKey) {
+        list.remove(searchKey.intValue());
+    }
+
+    @Override
+    protected Resume doGet(Integer searchKey) {
+        return list.get(searchKey);
     }
 
     @Override
     public void clear() {
-        listStorage.clear();
+        list.clear();
+    }
+
+    @Override
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(list);
     }
 
     @Override
     public int size() {
-        return listStorage.size();
+        return list.size();
     }
 }

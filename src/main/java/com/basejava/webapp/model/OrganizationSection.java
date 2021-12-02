@@ -4,24 +4,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class ExperienceSection extends AbstractSection {
-    private List<Organization> organizations;
+public class OrganizationSection extends Section {
+    private final List<Organization> organizations;
 
-    public ExperienceSection(List<Organization> organizations) {
-        Objects.requireNonNull(organizations, "organizations must not be null");
-        this.organizations = organizations;
+    public OrganizationSection(Organization... organizations) {
+        this(Arrays.asList(organizations));
     }
 
-    public ExperienceSection(Organization...organizations) {
+    public OrganizationSection(List<Organization> organizations) {
         Objects.requireNonNull(organizations, "organizations must not be null");
-        this.organizations = Arrays.asList(organizations);
+        this.organizations = organizations;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ExperienceSection that = (ExperienceSection) o;
+        OrganizationSection that = (OrganizationSection) o;
         return organizations.equals(that.organizations);
     }
 

@@ -12,32 +12,37 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected int size = 0;
 
     @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     @Override
-    protected Resume getResume(Integer position) {
-        return storage[position];
+    protected void doUpdate(Resume resume, Integer searchKey) {
+        storage[searchKey] = resume;
     }
 
     @Override
-    protected void updateResume(Resume resume, Integer position) {
-        storage[position] = resume;
+    protected List<Resume> doCopyAll() {
+        return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
     @Override
-    protected void saveResume(Resume resume, Integer position) {
+    protected void doSave(Resume resume, Integer searchKey) {
         if (size == STORAGE_LIMIT)
             throw new StorageException("Storage overflow", resume.getUuid());
-        insert(resume, position);
+        insertElement(resume, searchKey);
         size++;
     }
 
     @Override
-    protected void deleteResume(Integer position) {
-        int idx = position;
+    protected void doDelete(Integer searchKey) {
+        int idx = searchKey;
         storage[idx] = null;
         if (size - idx + 1 >= 0)
             System.arraycopy(storage, idx + 1, storage, idx, size - idx + 1);
@@ -46,19 +51,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    public int size() {
-        return size;
-    }
-
-    protected abstract void insert(Resume resume, int idx);
-
-    @Override
-    protected boolean isExist(Integer position) {
-        return position >= 0;
+    protected Resume doGet(Integer searchKey) {
+        return storage[searchKey];
     }
 
     @Override
-    protected List<Resume> toList() {
-        return Arrays.asList(Arrays.copyOf(storage, size));
+    protected boolean isExist(Integer searchKey) {
+        return searchKey >= 0;
     }
+
+    protected abstract void insertElement(Resume resume, int idx);
 }

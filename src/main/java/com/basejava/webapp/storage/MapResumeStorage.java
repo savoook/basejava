@@ -12,43 +12,43 @@ public class MapResumeStorage extends AbstractStorage<Resume> {
     private Map<String, Resume> map = new LinkedHashMap<>();
 
     @Override
-    protected Resume getResume(Resume position) {
-        return position;
-    }
-
-    @Override
-    protected void updateResume(Resume resume, Resume position) {
-        map.put(resume.getUuid(), resume);
-    }
-
-    @Override
-    protected void saveResume(Resume resume, Resume position) {
-        map.put(resume.getUuid(), resume);
-    }
-
-    @Override
-    protected void deleteResume(Resume position) {
-        map.remove((position).getUuid());
-    }
-
-    @Override
-    protected Resume findPosition(String uuid) {
+    protected Resume getSearchKey(String uuid) {
         return map.get(uuid);
     }
 
     @Override
-    protected boolean isExist(Resume position) {
-        return position != null;
+    protected void doUpdate(Resume resume, Resume searchKey) {
+        map.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected List<Resume> toList() {
-        return new ArrayList<>(map.values());
+    protected boolean isExist(Resume searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    protected void doSave(Resume resume, Resume searchKey) {
+        map.put(resume.getUuid(), resume);
+    }
+
+    @Override
+    protected Resume doGet(Resume searchKey) {
+        return searchKey;
+    }
+
+    @Override
+    protected void doDelete(Resume searchKey) {
+        map.remove((searchKey).getUuid());
     }
 
     @Override
     public void clear() {
         map.clear();
+    }
+
+    @Override
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
     }
 
     @Override

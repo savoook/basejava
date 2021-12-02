@@ -11,7 +11,7 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+    private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -32,19 +32,19 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
-    public Map<ContactType, String> getContacts() {
-        return contacts;
+    public String getContact(ContactType type) {
+        return contacts.get(type);
     }
 
-    public Map<SectionType, AbstractSection> getSections() {
-        return sections;
+    public Section getSection(SectionType type) {
+        return sections.get(type);
     }
 
-    public void fillContact(ContactType type, String value){
+    public void addContact(ContactType type, String value){
         contacts.put(type, value);
     }
 
-    public void fillSection(SectionType type, AbstractSection value){
+    public void addSection(SectionType type, Section value){
         sections.put(type, value);
     }
 
@@ -66,17 +66,12 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return "Resume{" +
-                "uuid='" + uuid + ",\n" +
-                "fullName='" + fullName + ",\n" +
-                "contacts=" + contacts + ",\n" +
-                "sections=" + sections +
-                '}';
+        return uuid + '(' + fullName + ')';
     }
 
     @Override
     public int compareTo(Resume o) {
-        int nameCmp = fullName.compareTo(o.getFullName());
-        return nameCmp != 0 ? nameCmp : uuid.compareTo(o.getUuid());
+        int nameCmp = fullName.compareTo(o.fullName);
+        return nameCmp != 0 ? nameCmp : uuid.compareTo(o.uuid);
     }
 }

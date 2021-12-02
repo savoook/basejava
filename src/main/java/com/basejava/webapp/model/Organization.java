@@ -7,19 +7,17 @@ import java.util.Objects;
 
 public class Organization {
 
-    private final Link homepage;
-    private final List<Period> periodList;
+    private final Link homePage;
+    private List<Position> positions = new ArrayList<>();
 
-
-    public Organization(String name, String url, Period... periods) {
-        this.homepage = new Link(name, url);
-        this.periodList = Arrays.asList(periods);
+    public Organization(String name, String url, Position... positions) {
+        this(new Link(name, url), Arrays.asList(positions));
     }
 
-    public Organization(String name, String url, ArrayList<Period> periodList) {
-        Objects.requireNonNull(periodList, "periodList must not be null");
-        this.homepage = new Link(name, url);
-        this.periodList = periodList;
+    public Organization(Link homePage, List<Position> positions) {
+        Objects.requireNonNull(positions, "periodList must not be null");
+        this.homePage = homePage;
+        this.positions = positions;
     }
 
     @Override
@@ -27,20 +25,19 @@ public class Organization {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return Objects.equals(homepage, that.homepage) &&
-                periodList.equals(that.periodList);
+        return Objects.equals(homePage, that.homePage) &&
+                positions.equals(that.positions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(homepage, periodList);
+        return Objects.hash(homePage, positions);
     }
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "homepage=" + homepage +
-                ", periodList=" + periodList +
-                '}';
+        return "Organization(" + homePage + "," + positions + ')';
     }
 }
+
+
