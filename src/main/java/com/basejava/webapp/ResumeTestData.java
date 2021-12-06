@@ -63,14 +63,14 @@ public class ResumeTestData {
 
         r.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Java Online Projects",
                 "https://javaops.ru",
-                new Position((LocalDate.of(2013, 10, 1)),
+                new Organization.Position((LocalDate.of(2013, 10, 1)),
                         LocalDate.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн " +
-                        "проектов и стажировок."), new Position(LocalDate.of(2012, 10, 1),
+                        "проектов и стажировок."), new Organization.Position(LocalDate.of(2012, 10, 1),
                 LocalDate.of(2013, 10, 1), "Автор проекта.", "Создание," +
                 " организация и проведение Java онлайн проектов и стажировок."))));
 
         r.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Wrike", "https://www.wrike.com",
-                new Position(LocalDate.of(2014, 10, 1),
+                new Organization.Position(LocalDate.of(2014, 10, 1),
                         LocalDate.of(2016, 1, 1), "Старший разработчик (backend)",
                         "Проектирование и разработка онлайн платформы управления проектами Wrike" +
                                 " (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis)." +
@@ -78,13 +78,13 @@ public class ResumeTestData {
 
         r.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Coursera",
                 "https://www.coursera.org/learn/scala-functional-programming",
-                new Position(LocalDate.of(2013, 3, 1),
+                new Organization.Position(LocalDate.of(2013, 3, 1),
                         LocalDate.of(2013, 5, 1), "\"Functional Programming Principles in " +
                         "Scala\" by Martin Odersky", null))));
 
         r.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Luxoft",
                 "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
-                new Position(LocalDate.of(2011, 3, 1),
+                new Organization.Position(LocalDate.of(2011, 3, 1),
                         LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. " +
                         "Концептуальное моделирование на UML.\"", null))));
     return r;

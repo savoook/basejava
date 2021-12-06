@@ -7,6 +7,7 @@ import com.basejava.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract class AbstractStorageTest {
+
+    protected static final File STORAGE_DIR = new File("C:\\Users\\SavinPav\\IdeaProjects\\basejava\\storage\\");
 
     protected final Storage storage;
 
@@ -34,7 +37,7 @@ abstract class AbstractStorageTest {
     protected final Resume resumeExist = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
     protected final Resume resumeNotExist = ResumeTestData.createResume(UUID_4, FULL_NAME_4);
 
-     public AbstractStorageTest(Storage storage) {
+    public AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
