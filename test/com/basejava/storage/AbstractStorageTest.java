@@ -112,7 +112,6 @@ abstract class AbstractStorageTest {
         assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_4));
     }
 
-    @Test
     private void checkList(Resume... resumes) {
         List<Resume> actual = storage.getAllSorted();
         List<Resume> expected = new ArrayList<>(Arrays.asList(resumes));
