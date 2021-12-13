@@ -6,21 +6,20 @@ import com.basejava.model.Resume;
 import java.io.*;
 
 public class ObjectStreamStorage extends AbstractFileStorage {
-    public ObjectStreamStorage(File directory) {
+    protected ObjectStreamStorage(File directory) {
         super(directory);
     }
 
     @Override
-    void doWrite(Resume resume, OutputStream os) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(os);) {
+    protected void doWrite(Resume resume, OutputStream os) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(os)) {
             oos.writeObject(resume);
         }
     }
 
     @Override
     protected Resume doRead(InputStream is) throws IOException {
-        ObjectInputStream ois = new ObjectInputStream(is);
-        try {
+        try (ObjectInputStream ois = new ObjectInputStream(is)) {
             return (Resume) ois.readObject();
         } catch (ClassNotFoundException e) {
             throw new StorageException("Error read resume", null, e);
