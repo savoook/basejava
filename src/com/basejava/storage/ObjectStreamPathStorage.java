@@ -1,14 +1,13 @@
-/*
-package com.basejava.storage;
+/*package com.basejava.storage;
 
 import com.basejava.exception.StorageException;
 import com.basejava.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage extends AbstractFileStorage {
-    protected ObjectStreamStorage(File directory) {
-        super(directory);
+public class ObjectStreamPathStorage extends AbstractPathStorage {
+    protected ObjectStreamPathStorage(String dir) {
+        super(dir);
     }
 
     @Override
@@ -26,5 +25,4 @@ public class ObjectStreamStorage extends AbstractFileStorage {
             throw new StorageException("Error read resume", null, e);
         }
     }
-}
-*/
+}*/

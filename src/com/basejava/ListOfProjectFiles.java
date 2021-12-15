@@ -8,7 +8,7 @@ public class ListOfProjectFiles {
     static StringBuilder sep = new StringBuilder();
 
     public static void main(String[] args) {
-        String path = "src/main/java/com/basejava/webapp";
+        String path = "src";
         File file = new File(path);
 
         if (!file.exists()) {

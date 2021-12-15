@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 abstract class AbstractStorageTest {
 
     protected static final File STORAGE_DIR = new File("C:\\Users\\SavinPav\\IdeaProjects\\basejava\\storage");
+    protected static final String STORAGE_PATH = "C:\\Users\\SavinPav\\IdeaProjects\\basejava\\storage";
 
     protected final Storage storage;
 
