@@ -1,10 +1,10 @@
 package com.basejava.storage;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.basejava.storage.serializer.ObjectStreamSerializer;
 
 class PathStorageTest extends AbstractStorageTest {
 
     public PathStorageTest() {
-        super(new PathStorage(STORAGE_PATH, new Serial1()));
+        super(new PathStorage(STORAGE_DIR.getAbsolutePath(), new ObjectStreamSerializer()));
     }
 }

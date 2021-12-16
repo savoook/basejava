@@ -1,6 +1,8 @@
 package com.basejava;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class MainFile {
     public static void main(String[] args) {

@@ -1,11 +1,11 @@
-package com.basejava.storage;
+package com.basejava.storage.serializer;
 
 import com.basejava.exception.StorageException;
 import com.basejava.model.Resume;
 
 import java.io.*;
 
-public class Serial1 implements SerialInterface {
+public class ObjectStreamSerializer implements Serializer {
     @Override
     public void doWrite(Resume resume, OutputStream os) throws IOException {
         try (ObjectOutputStream oos = new ObjectOutputStream(os)) {

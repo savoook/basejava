@@ -12,7 +12,7 @@ import static com.basejava.util.DateUtil.NOW;
 import static com.basejava.util.DateUtil.of;
 
 public class Organization implements Serializable {
-    private static final long serialVersionUID= 1L;
+    private static final long serialVersionUID = 1L;
     private final Link homePage;
     private List<Position> positions = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class Organization implements Serializable {
     }
 
     public static class Position implements Serializable {
-        private static final long serialVersionUID= 1L;
+        private static final long serialVersionUID = 1L;
         private final LocalDate startDate;
         private final LocalDate endDate;
         private final String title;

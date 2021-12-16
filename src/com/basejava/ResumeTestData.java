@@ -87,6 +87,6 @@ public class ResumeTestData {
                 new Organization.Position(LocalDate.of(2011, 3, 1),
                         LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. " +
                         "Концептуальное моделирование на UML.\"", null))));
-    return r;
+        return r;
     }
 }
