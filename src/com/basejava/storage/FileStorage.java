@@ -2,7 +2,7 @@ package com.basejava.storage;
 
 import com.basejava.exception.StorageException;
 import com.basejava.model.Resume;
-import com.basejava.storage.serializer.Serializer;
+import com.basejava.storage.serializer.StreamSerializer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import java.util.Objects;
 public class FileStorage extends AbstractStorage<File> {
     private File directory;
 
-    private Serializer serializer;
+    private StreamSerializer serializer;
 
-    public FileStorage(File directory, Serializer serializer) {
+    public FileStorage(File directory, StreamSerializer serializer) {
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
