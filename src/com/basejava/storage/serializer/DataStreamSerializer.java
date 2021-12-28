@@ -35,8 +35,9 @@ public class DataStreamSerializer implements StreamSerializer {
                     case EXPERIENCE:
                     case EDUCATION:
                         writeList(dos, ((OrganizationSection) section).getOrganizations(), organization -> {
-                            dos.writeUTF(organization.getHomePage().getName());
-                            dos.writeUTF(organization.getHomePage().getUrl());
+                            Link homePage = organization.getHomePage();
+                            dos.writeUTF(homePage.getName());
+                            dos.writeUTF(homePage.getUrl());
                             writeList(dos, organization.getPositions(), position -> {
                                 writeLocalDate(dos, position.getStartDate());
                                 writeLocalDate(dos, position.getEndDate());
@@ -64,7 +65,6 @@ public class DataStreamSerializer implements StreamSerializer {
             return resume;
         }
     }
-
 
     private Section getSection(DataInputStream dis, SectionType type) throws IOException {
         switch (type) {

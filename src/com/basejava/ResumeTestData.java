@@ -69,7 +69,7 @@ public class ResumeTestData {
                 LocalDate.of(2013, 10, 1), "Автор проекта.", "Создание," +
                 " организация и проведение Java онлайн проектов и стажировок."))));
 
-        r.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Wrike", "https://www.wrike.com",
+        r.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Wrike", null,
                 new Organization.Position(LocalDate.of(2014, 10, 1),
                         LocalDate.of(2016, 1, 1), "Старший разработчик (backend)",
                         "Проектирование и разработка онлайн платформы управления проектами Wrike" +
@@ -80,7 +80,7 @@ public class ResumeTestData {
                 "https://www.coursera.org/learn/scala-functional-programming",
                 new Organization.Position(LocalDate.of(2013, 3, 1),
                         LocalDate.of(2013, 5, 1), "\"Functional Programming Principles in " +
-                        "Scala\" by Martin Odersky",""))));
+                        "Scala\" by Martin Odersky", null))));
 
         r.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Luxoft",
                 "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
