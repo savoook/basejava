@@ -80,13 +80,13 @@ public class ResumeTestData {
                 "https://www.coursera.org/learn/scala-functional-programming",
                 new Organization.Position(LocalDate.of(2013, 3, 1),
                         LocalDate.of(2013, 5, 1), "\"Functional Programming Principles in " +
-                        "Scala\" by Martin Odersky", null))));
+                        "Scala\" by Martin Odersky",""))));
 
         r.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Luxoft",
                 "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
                 new Organization.Position(LocalDate.of(2011, 3, 1),
                         LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. " +
-                        "Концептуальное моделирование на UML.\"", null))));
+                        "Концептуальное моделирование на UML.\"", ""))));
         return r;
     }
 }

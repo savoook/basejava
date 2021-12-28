@@ -35,6 +35,14 @@ public class Organization implements Serializable {
         this.positions = positions;
     }
 
+    public Link getHomePage() {
+        return homePage;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,6 +83,8 @@ public class Organization implements Serializable {
         public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
             this(of(startYear, startMonth), of(endYear, endMonth), title, description);
         }
+
+
 
         public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
             Objects.requireNonNull(startDate, "startTime must not be null");
