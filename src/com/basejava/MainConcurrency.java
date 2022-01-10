@@ -58,45 +58,6 @@ public class MainConcurrency {
             }
         });
         System.out.println(mainConcurrency.counter);
-
-        Object x = new Object();
-        Object y = new Object();
-        deadLock(x, y);
-    }
-
-    private static void deadLock(Object lock1, Object lock2) {
-        new Thread(
-                () -> {
-                    synchronized (lock1) {
-                        System.out.println(Thread.currentThread().getName() + " get monitor " + lock1.hashCode());
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        System.out.println(Thread.currentThread().getName() + " try get monitor " + lock2.hashCode());
-                        synchronized (lock2) {
-                            System.out.println(Thread.currentThread().getName() + " get monitor " + lock2.hashCode());
-                        }
-                    }
-                }).start();
-        new Thread(
-                () -> {
-                    synchronized (lock2) {
-                        System.out.println(Thread.currentThread().getName() + " get monitor " + lock2.hashCode());
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        System.out.println(Thread.currentThread().getName() + " try get monitor " + lock1.hashCode());
-                        synchronized (lock1) {
-                            System.out.println(Thread.currentThread().getName() + " get monitor " + lock1.hashCode());
-                        }
-                    }
-                }).start();
     }
 
     private synchronized void inc() {
