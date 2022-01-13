@@ -12,12 +12,7 @@ public class MainStream {
     private static List<Integer> list = new ArrayList<>(Arrays.asList(2, 3, 1, 4));
 
     public static int minValue(int[] values) {
-        int[] sortedArray = Arrays.stream(values).distinct().sorted().toArray();
-        double min = 0;
-        for (int i = 0; i <= sortedArray.length - 1; i++) {
-            min = min + sortedArray[i] * Math.pow(10, sortedArray.length - 1 - i);
-        }
-        return (int) min;
+        return Arrays.stream(values).distinct().sorted().reduce((x, y) -> (10 * x + y)).getAsInt();
     }
 
     public static List<Integer> oddOrEven(List<Integer> integers) {
