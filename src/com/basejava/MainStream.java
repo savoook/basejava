@@ -11,8 +11,13 @@ public class MainStream {
     private static int[] array = {1, 3, 2, 6, 1, 5, 4, 9, 7, 8, 8};
     private static List<Integer> list = new ArrayList<>(Arrays.asList(2, 3, 1, 4));
 
+    public static void main(String[] args) {
+        System.out.println(minValue(array));
+        System.out.println(oddOrEven(list));
+    }
+
     public static int minValue(int[] values) {
-        return Arrays.stream(values).distinct().sorted().reduce((x, y) -> (10 * x + y)).getAsInt();
+        return Arrays.stream(values).distinct().sorted().reduce(0, (x, y) -> 10 * x + y);
     }
 
     public static List<Integer> oddOrEven(List<Integer> integers) {
@@ -21,8 +26,5 @@ public class MainStream {
         return oddsAndEvens.get(oddsAndEvens.get(false).size() % 2 != 0);
     }
 
-    public static void main(String[] args) {
-        System.out.println(minValue(array));
-        System.out.println(oddOrEven(list));
-    }
+
 }
