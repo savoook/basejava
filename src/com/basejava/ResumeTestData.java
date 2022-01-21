@@ -1,15 +1,13 @@
 package com.basejava;
 
-import com.basejava.model.*;
-
-import java.time.LocalDate;
+import com.basejava.model.Resume;
 
 public class ResumeTestData {
 
     public static Resume createResume(String uuid, String fullName) {
         Resume r = new Resume(uuid, fullName);
 
-        r.addContact(ContactType.PHONE, "+7(921) 855-0482");
+        /*r.addContact(ContactType.PHONE, "+7(921) 855-0482");
         r.addContact(ContactType.MAIL, "gkislin@yandex.ru");
         r.addContact(ContactType.GITHUB, "https://github.com/gkislin");
         r.addContact(ContactType.HOME_PAGE, "http://gkislin.ru");
@@ -87,6 +85,6 @@ public class ResumeTestData {
                 new Organization.Position(LocalDate.of(2011, 3, 1),
                         LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. " +
                         "Концептуальное моделирование на UML.\"", ""))));
-        return r;
+       */ return r;
     }
 }
