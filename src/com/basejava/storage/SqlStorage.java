@@ -5,6 +5,7 @@ import com.basejava.model.Resume;
 import com.basejava.sql.SqlHelper;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +20,18 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-        sqlHelper.execute("DELETE FROM resume", ps -> ps.execute());
+        sqlHelper.execute("DELETE FROM resume", PreparedStatement::execute);
     }
 
     @Override
     public void update(Resume resume) {
+        String uuid = resume.getUuid();
         sqlHelper.execute("update resume set full_name=? where uuid =?", ps -> {
-            ps.setString(2, resume.getUuid());
+            ps.setString(2, uuid);
             ps.setString(1, resume.getFullName());
             ps.execute();
             if (ps.executeUpdate() == 0) {
-                throw new NotExistStorageException(resume.getUuid());
+                throw new NotExistStorageException(uuid);
             }
             return null;
         });
@@ -61,10 +63,10 @@ public class SqlStorage implements Storage {
     public void delete(String uuid) {
         sqlHelper.execute("DELETE FROM resume where uuid = ?", ps -> {
             ps.setString(1, uuid);
-            ps.execute();
-            /*if (ps.executeUpdate() == 0) {
+            //ps.execute();
+            if (ps.executeUpdate() == 0) {
                 throw new NotExistStorageException(uuid);
-            }*/
+            }
             return null;
         });
     }
