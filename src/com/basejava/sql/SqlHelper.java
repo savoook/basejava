@@ -17,8 +17,12 @@ public class SqlHelper {
              PreparedStatement ps = con.prepareStatement(sql);) {
             return executor.execute(ps);
         } catch (SQLException e) {
-            throw ExceptionAdapter.transfer(e);
+            throw ExceptionUtil.convertException(e);
         }
+    }
+
+    public void execute(String sql) {
+        execute(sql, PreparedStatement::execute);
     }
 }
 

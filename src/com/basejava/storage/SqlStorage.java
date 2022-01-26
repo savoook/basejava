@@ -5,7 +5,6 @@ import com.basejava.model.Resume;
 import com.basejava.sql.SqlHelper;
 
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-        sqlHelper.execute("DELETE FROM resume", PreparedStatement::execute);
+        sqlHelper.execute("DELETE FROM resume");
     }
 
     @Override
@@ -29,7 +28,6 @@ public class SqlStorage implements Storage {
         sqlHelper.execute("update resume set full_name=? where uuid =?", ps -> {
             ps.setString(2, uuid);
             ps.setString(1, resume.getFullName());
-            ps.execute();
             if (ps.executeUpdate() == 0) {
                 throw new NotExistStorageException(uuid);
             }
