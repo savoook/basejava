@@ -1,5 +1,6 @@
 package com.basejava;
 
+import com.basejava.model.ContactType;
 import com.basejava.model.Resume;
 
 public class ResumeTestData {
@@ -7,9 +8,9 @@ public class ResumeTestData {
     public static Resume createResume(String uuid, String fullName) {
         Resume r = new Resume(uuid, fullName);
 
-        /*r.addContact(ContactType.PHONE, "+7(921) 855-0482");
+        r.addContact(ContactType.PHONE, "+7(921) 855-0482");
         r.addContact(ContactType.MAIL, "gkislin@yandex.ru");
-        r.addContact(ContactType.GITHUB, "https://github.com/gkislin");
+        /*r.addContact(ContactType.GITHUB, "https://github.com/gkislin");
         r.addContact(ContactType.HOME_PAGE, "http://gkislin.ru");
         r.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
         r.addContact(ContactType.SKYPE, "grigory.kislin");

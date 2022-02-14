@@ -77,9 +77,18 @@ public class Resume implements Comparable<Resume>, Serializable {
         return Objects.hash(uuid, fullName, contacts, sections);
     }
 
-    @Override
+/*    @Override
     public String toString() {
         return uuid + '(' + fullName + ')';
+    }*/
+
+    @Override
+    public String toString() {
+        return "Resume{" +
+                "uuid='" + uuid + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", contacts=" + contacts +
+                '}';
     }
 
     @Override
