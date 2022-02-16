@@ -32,7 +32,7 @@ abstract class AbstractStorageTest {
     private static final String FULL_NAME_3 = "Person3";
     private static final String FULL_NAME_4 = "Person4";
 
-    private final Resume resume1 = ResumeTestData.createResume(UUID_1, FULL_NAME_1);
+    private final Resume resume1 = new Resume(UUID_1, FULL_NAME_1);//ResumeTestData.createResume(UUID_1, FULL_NAME_1);
     private final Resume resume2 = ResumeTestData.createResume(UUID_2, FULL_NAME_2);
     private final Resume resume3 = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
     protected final Resume resumeExist = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
