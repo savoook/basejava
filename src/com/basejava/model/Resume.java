@@ -88,6 +88,7 @@ public class Resume implements Comparable<Resume>, Serializable {
                 "uuid='" + uuid + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", contacts=" + contacts +
+                ", sections=" + sections +
                 '}';
     }
 

@@ -1,7 +1,6 @@
 package com.basejava;
 
-import com.basejava.model.ContactType;
-import com.basejava.model.Resume;
+import com.basejava.model.*;
 
 public class ResumeTestData {
 
@@ -14,7 +13,7 @@ public class ResumeTestData {
         r.addContact(ContactType.HOME_PAGE, "http://gkislin.ru");
         r.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
         r.addContact(ContactType.SKYPE, "grigory.kislin");
-        r.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        r.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");*/
 
         r.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика," +
                 " креативность, инициативность. Пурист кода и архитектуры."));
@@ -58,7 +57,7 @@ public class ResumeTestData {
                 "OpenCmis, Bonita, pgBouncer." +
                 "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов," +
                 " UML, функционального программирования" +
-                "Родной русский, английский \"upper intermediate\""));
+                "Родной русский, английский \"upper intermediate\""));/*
 
         r.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Java Online Projects",
                 "https://javaops.ru",
