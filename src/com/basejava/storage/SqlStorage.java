@@ -5,17 +5,18 @@ import com.basejava.model.*;
 import com.basejava.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class SqlStorage implements Storage {
 
     public final SqlHelper sqlHelper;
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
         sqlHelper = new SqlHelper(() -> DriverManager.getConnection(dbUrl, dbUser, dbPassword));
     }
 
@@ -120,7 +121,6 @@ public class SqlStorage implements Storage {
         });
     }
 
-
     @Override
     public int size() {
         return sqlHelper.execute("SELECT count(*) FROM resume", ps -> {
@@ -137,10 +137,24 @@ public class SqlStorage implements Storage {
     }
 
     private void addSection(ResultSet rs, Resume resume) throws SQLException {
-        Section content = rs.getObject("content", Section.class);
+        String content = rs.getString("content");
+        Section section;
         if (content != null) {
+            String s = rs.getString("type");
             SectionType type = SectionType.valueOf(rs.getString("type"));
-            resume.addSection(type, content);
+            switch (type) {
+                case PERSONAL:
+                case OBJECTIVE:
+                    section = new TextSection(content);
+                    break;
+                case ACHIEVEMENT:
+                case QUALIFICATIONS:
+                    section = new ListSection(content.split("\n"));
+                    break;
+                default:
+                    throw new IllegalStateException();
+            }
+            resume.addSection(type, section);
         }
     }
 
@@ -161,17 +175,25 @@ public class SqlStorage implements Storage {
         try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section(resume_uuid, type, content)" +
                 "                                              VALUES( ?, ?,?)")) {
             for (Map.Entry<SectionType, Section> e : resume.getSections().entrySet()) {
+                SectionType type = e.getKey();
+                Section section = e.getValue();
                 ps.setString(1, resume.getUuid());
-                ps.setString(2, e.getKey().name());
-                // if (e.getValue().equals(ListSection.class)) {
-                if (e.getValue().getClass().getSimpleName().equals("ListSection")) {
-                    ListSection section = (ListSection) e.getValue();
-                    String result = section.getItems().stream().collect(Collectors.joining(", "));
-                    ps.setString(3, result);
-                } else {
-                    TextSection section = (TextSection) e.getValue();
-                    String result = section.getContent();
-                    ps.setString(3, result);
+                ps.setString(2, type.name());
+                switch (type) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        ps.setString(3, ((TextSection) section).getContent());
+                        break;
+                    case ACHIEVEMENT:
+                    case QUALIFICATIONS:
+                        StringJoiner joiner = new StringJoiner("\n");
+                        for (String s : ((ListSection) section).getItems()) {
+                            joiner.add(s.toString());
+                        }
+                        ps.setString(3, joiner.toString());
+                        break;
+                    default:
+                        throw new IllegalStateException();
                 }
                 ps.addBatch();
             }
@@ -194,7 +216,8 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void addDetail(Connection conn, String sql, String parm, Map<String, Resume> resumes) throws SQLException {
+    private void addDetail(Connection conn, String sql, String parm, Map<String, Resume> resumes) throws
+            SQLException {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

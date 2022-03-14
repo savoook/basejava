@@ -35,7 +35,7 @@ public class ResumeTestData {
                 " систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы" +
                 " по JMX (Jython/ Django).\"" +
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, " +
-                "Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.\""));
+                "Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа.\"", "123"));
 
         r.addSection(SectionType.QUALIFICATIONS, new ListSection("JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, " +
                 "Tomcat, Jetty, WebLogic, WSO2" +
