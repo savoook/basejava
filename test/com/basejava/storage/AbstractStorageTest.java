@@ -1,7 +1,6 @@
 package com.basejava.storage;
 
 import com.basejava.Config;
-import com.basejava.ResumeTestData;
 import com.basejava.exception.ExistStorageException;
 import com.basejava.exception.NotExistStorageException;
 import com.basejava.model.Resume;
@@ -12,7 +11,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
+
+import static com.basejava.storage.TestData.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,22 +21,6 @@ abstract class AbstractStorageTest {
 
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
     protected final Storage storage;
-
-    private static final String UUID_1 = UUID.randomUUID().toString();
-    private static final String UUID_2 = UUID.randomUUID().toString();
-    private static final String UUID_3 = UUID.randomUUID().toString();
-    private static final String UUID_4 = UUID.randomUUID().toString();
-
-    private static final String FULL_NAME_1 = "Person1";
-    private static final String FULL_NAME_2 = "Person2";
-    private static final String FULL_NAME_3 = "Person3";
-    private static final String FULL_NAME_4 = "Person4";
-
-    private final Resume resume1 = /*new Resume(UUID_1, FULL_NAME_1);*/ResumeTestData.createResume(UUID_1, FULL_NAME_1);
-    private final Resume resume2 = ResumeTestData.createResume(UUID_2, FULL_NAME_2);
-    private final Resume resume3 = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
-    protected final Resume resumeExist = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
-    protected final Resume resumeNotExist = ResumeTestData.createResume(UUID_4, FULL_NAME_4);
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -69,7 +53,7 @@ abstract class AbstractStorageTest {
 
     @Test
     void get() throws Exception {
-        Resume actual = storage.get(UUID_1);
+        Resume actual = storage.get(resume1.getUuid());
         assertEquals(resume1, actual);
     }
 
@@ -103,14 +87,14 @@ abstract class AbstractStorageTest {
 
     @Test
     void delete() throws Exception {
-        storage.delete(UUID_1);
+        storage.delete(resume1.getUuid());
         checkList(resume2, resume3);
         assertEquals(2, storage.size());
     }
 
     @Test
     void deleteNotExist() throws Exception {
-        assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_4));
+        assertThrows(NotExistStorageException.class, () -> storage.delete(resumeNotExist.getUuid()));
     }
 
     private void checkList(Resume... resumes) {

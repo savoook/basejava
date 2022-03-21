@@ -2,7 +2,7 @@
 target
 *.iml
 log
-storage
+out/artifacts/storage
 
 
 

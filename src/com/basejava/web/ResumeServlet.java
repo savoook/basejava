@@ -18,13 +18,14 @@ public class ResumeServlet extends HttpServlet {
     private static Storage storage;// = Config.get().getStorage();
 
 
-    static {
+/*    static {
         storage = Config.get().getStorage();
-    }
+    }*/
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        storage = Config.get().getStorage();
     }
 
 
