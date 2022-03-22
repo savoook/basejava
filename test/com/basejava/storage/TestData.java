@@ -24,13 +24,14 @@ public class TestData {
 
     static {
         resume1 = new Resume(UUID_1, FULL_NAME_1);//ResumeTestData.createResume(UUID_1, FULL_NAME_1);
-        resume2 = ResumeTestData.createResume(UUID_2, FULL_NAME_2);
-        resume3 = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
-        resumeExist = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
-        resumeNotExist = ResumeTestData.createResume(UUID_4, FULL_NAME_4);
+        resume2 = new Resume(UUID_2, FULL_NAME_2);
+        resume3 = new Resume(UUID_3, FULL_NAME_3);
+        resumeExist = new Resume(UUID_3, FULL_NAME_3);
+        resumeNotExist = new Resume(UUID_4, FULL_NAME_4);
 
         resume1.addContact(ContactType.PHONE, "+7(921) 855-0482");
         resume1.addContact(ContactType.MAIL, "gkislin@yandex.ru");
+        resume2.addContact(ContactType.MAIL, "test@yandex.ru");
         /*resume1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
         resume1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru");
         resume1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
