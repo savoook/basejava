@@ -13,16 +13,18 @@
 <section>
     <table border="1" cellpadding="8" cellspacing="0">
         <tr>
-            <th>ID</th>
             <th>Имя</th>
             <th>Email</th>
+            <th></th>
+            <th></th>
         </tr>
         <c:forEach items="${resumes}" var="resume">
             <jsp:useBean id="resume" type="com.basejava.model.Resume"/>
             <tr>
-                <td><a href="resume?uuid=${resume.uuid}">${resume.uuid}</a></td>
-                <td>${resume.fullName}</td>
-                <td>${resume.getContact(ContactType.MAIL)}</td>
+                <td><a href="resume?uuid=${resume.uuid}&action=view">${resume.fullName}</a></td>
+                <td><%=ContactType.MAIL.toHtml(resume.getContact(ContactType.MAIL))%></td>
+                <td><a href="resume?uuid=${resume.uuid}&action=delete"><img src="img/delete.png"></a></td>
+                <td><a href="resume?uuid=${resume.uuid}&action=edit"><img src="img/pencil.png"></a></td>
             </tr>
         </c:forEach>
     </table>
