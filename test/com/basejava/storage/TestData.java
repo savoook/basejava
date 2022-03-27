@@ -1,8 +1,8 @@
 package com.basejava.storage;
 
-import com.basejava.ResumeTestData;
 import com.basejava.model.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class TestData {
@@ -32,14 +32,15 @@ public class TestData {
         resume1.addContact(ContactType.PHONE, "+7(921) 855-0482");
         resume1.addContact(ContactType.MAIL, "gkislin@yandex.ru");
         resume2.addContact(ContactType.MAIL, "test@yandex.ru");
-        /*resume1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
+        resume1.addContact(ContactType.GITHUB, "https://github.com/gkislin");
         resume1.addContact(ContactType.HOME_PAGE, "http://gkislin.ru");
         resume1.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
         resume1.addContact(ContactType.SKYPE, "grigory.kislin");
-        resume1.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");*/
+        resume1.addContact(ContactType.STATCKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
         resume1.addSection(SectionType.PERSONAL, new
                 TextSection("Аналитический склад ума, сильная логика," +
                 " креативность, инициативность. Пурист кода и архитектуры."));
+        resume1.addSection(SectionType.OBJECTIVE, new TextSection("разраб"));
         resume1.addSection(SectionType.ACHIEVEMENT, new
                 ListSection("С 2013 года: разработка проектов \"Разработка Web" +
                 " приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб" +
@@ -81,8 +82,14 @@ public class TestData {
                 "OpenCmis, Bonita, pgBouncer." +
                 "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов," +
                 " UML, функционального программирования" +
-                "Родной русский, английский \"upper intermediate\""));/*
-        resume1.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Java Online Projects",
+                "Родной русский, английский \"upper intermediate\""));
+
+        resume1.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Wrike", null,
+                new Organization.Position(LocalDate.of(2014, 10, 1),
+                        LocalDate.of(2016, 1, 1), "Старший разработчик (backend)",
+                        "Проектирование и разработка онлайн платформы управления проектами Wrike" +
+                                " (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis)." +
+                                " Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.")), new Organization("Java Online Projects",
                 "https://javaops.ru",
                 new Organization.Position((LocalDate.of(2013, 10, 1)),
                         LocalDate.now(), "Автор проекта.", "Создание, организация и проведение Java онлайн " +
@@ -90,25 +97,15 @@ public class TestData {
                 LocalDate.of(2013, 10, 1), "Автор проекта.", "Создание," +
                 " организация и проведение Java онлайн проектов и стажировок."))));
 
-        resume1.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Wrike", null,
-                new Organization.Position(LocalDate.of(2014, 10, 1),
-                        LocalDate.of(2016, 1, 1), "Старший разработчик (backend)",
-                        "Проектирование и разработка онлайн платформы управления проектами Wrike" +
-                                " (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis)." +
-                                " Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."))));
-
         resume1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Coursera",
                 "https://www.coursera.org/learn/scala-functional-programming",
                 new Organization.Position(LocalDate.of(2013, 3, 1),
                         LocalDate.of(2013, 5, 1), "\"Functional Programming Principles in " +
-                        "Scala\" by Martin Odersky", null))));
-
-        resume1.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Luxoft",
+                        "Scala\" by Martin Odersky", null)), new Organization("Luxoft",
                 "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
                 new Organization.Position(LocalDate.of(2011, 3, 1),
                         LocalDate.of(2011, 4, 1), "Курс \"Объектно-ориентированный анализ ИС. " +
                         "Концептуальное моделирование на UML.\"", ""))));
     }
-       */
-    }
 }
+

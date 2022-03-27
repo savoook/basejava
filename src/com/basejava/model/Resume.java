@@ -22,6 +22,16 @@ public class Resume implements Comparable<Resume>, Serializable {
     private String fullName;
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
+    public static final Resume EMPTY = new Resume();
+
+    static {
+        EMPTY.addSection(SectionType.PERSONAL, TextSection.EMPTY);
+        EMPTY.addSection(SectionType.OBJECTIVE, TextSection.EMPTY);
+        EMPTY.addSection(SectionType.ACHIEVEMENT, ListSection.EMPTY);
+        EMPTY.addSection(SectionType.QUALIFICATIONS, ListSection.EMPTY);
+        EMPTY.addSection(SectionType.EXPERIENCE, new OrganizationSection(Organization.EMPTY));
+        EMPTY.addSection(SectionType.EDUCATION, new OrganizationSection(Organization.EMPTY));
+    }
 
     public Resume() {
     }
@@ -67,6 +77,10 @@ public class Resume implements Comparable<Resume>, Serializable {
 
     public void addSection(SectionType type, Section value) {
         sections.put(type, value);
+    }
+
+    public Section pullSection(SectionType type){
+        return sections.get(type);
     }
 
     @Override

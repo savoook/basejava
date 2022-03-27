@@ -1,6 +1,5 @@
 package com.basejava;
 
-
 import com.basejava.model.Resume;
 
 import java.lang.reflect.Field;
